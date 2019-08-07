@@ -13,12 +13,7 @@ class Post extends Component {
 
     }
 
-    componentDidMount() {
-        console.log("hello")
-        // if (this.props.post[this.props.match.params.postId] === undefined) {
-        //     this.props.history.push("/")
-        // }
-    }
+
 
     handleEdit() {
         this.setState({ editing: true })
@@ -30,6 +25,15 @@ class Post extends Component {
         this.props.history.push("/")
     }
     render() {
+    
+        // if (this.props.post[this.props.match.params.postId] === undefined) {
+        //     console.log("if statement")
+        //     console.log(this.props.history)
+            
+        //         return this.props.history.push("/")
+
+        // }
+        // else {
         let postId = this.props.match.params.postId;
         let { title, description, body } = this.props.post[postId];
         let editForm = <PostForm history={this.props.history} id={postId} editPost={this.props.editPost} blog={this.props.post[postId]} />
@@ -37,6 +41,7 @@ class Post extends Component {
             <button onClick={this.handleEdit}>Edit Post</button>
             <button onClick={this.handleRemove}>Delete Post</button>
         </div>
+        
         return (
             <div>
                 <Card>
@@ -50,6 +55,7 @@ class Post extends Component {
             </div>
         )
     }
+
 }
 
 export default Post;

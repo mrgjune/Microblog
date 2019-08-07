@@ -33,7 +33,7 @@ class Routes extends Component {
                             post={this.props.postList} />} />
                     />
                    
-
+                <Redirect to="/" />
                 </Switch>
             </div>
         );
