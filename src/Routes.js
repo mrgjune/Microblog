@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./Home";
 import PostForm from "./PostForm";
 import Post from "./Post";
-import PostList from "./TitleCard";
+
 
 class Routes extends Component {
     render() {
@@ -15,12 +15,12 @@ class Routes extends Component {
                     <Route
                         exact
                         path="/"
-                        render={() => <Home postList={this.props.postList} />} />
+                        render={() => <Home />} />
 
                     <Route
                         exact
-                        path="k/new"
-                        render={rtProps => <PostForm {...rtProps} addPost={this.props.addPost} />} />
+                        path="/new"
+                        render={rtProps => <PostForm {...rtProps} />} />
                     
                     <Route
                         exact
@@ -28,9 +28,7 @@ class Routes extends Component {
                         // Should we only pass down the individual post?
                         render={rtProps => <Post
                             {...rtProps}
-                            editPost={this.props.editPost}
-                            delete={this.props.deletePost}
-                            post={this.props.postList} />} />
+                            />}
                     />
                    
                 <Redirect to="/" />

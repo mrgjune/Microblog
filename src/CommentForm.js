@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import uuid from 'uuid/v1';
+import { addComment } from './actionCreators';
+import { connect } from 'react-redux';
 
 
 class CommentForm extends Component {
@@ -25,8 +27,8 @@ class CommentForm extends Component {
 
     handleSubmit(evt) {
         evt.preventDefault();
-        let id = uuid();
-        this.props.addComment(id, this.state)
+        let commentId = uuid();
+        this.props.addComment(commentId,this.props.postId, {[commentId]: this.state.comment})
         this.setState({
             comment: ""
         })
@@ -54,4 +56,8 @@ class CommentForm extends Component {
     }
 }
 
-export default CommentForm;
+const mapDispatchToProps = {
+    addComment
+}
+
+export default connect(null, mapDispatchToProps)(CommentForm);

@@ -1,65 +1,72 @@
 import React, { Component } from 'react';
 import CommentForm from "./CommentForm";
-import TitleCard from "./TitleCard";
+import Card from "./Card";
+import { connect } from 'react-redux';
+
 class CommentList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            comments: {}
-        }
-        this.addComment = this.addComment.bind(this);
-        this.deleteComment = this.deleteComment.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: {}
     }
-    addComment(id,commentInput) {
-        this.setState(state => ({
-            comments: {
-              ...state.comments,
-              [id]: {
-                commentInput
-              }
-            }
-          }));
+    this.addComment = this.addComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
+  }
+  addComment(id, commentInput) {
+    this.setState(state => ({
+      comments: {
+        ...state.comments,
+        [id]: {
+          commentInput
         }
-    deleteComment(id) {
-            this.setState(state => {
-              let newState = state;
-              delete newState.comments[id]
-              return (
-                {
-                  ...newState
-                }
-              )
-            });
-          }
-         
-        
-   render(){
-    let commentListKeys = Object.keys(this.state.comments);
-    let commentList = this.state.comments;
-    const comments = commentListKeys.map(key => {
-        let comment = commentList[key].commentInput;
-        return (
-            <TitleCard key={key}
-                id={key}
-                comment={comment.comment}
-                deleteComment={this.deleteComment}
-    
-               />)
+      }
+    }));
+  }
+  deleteComment(id) {
+    this.setState(state => {
+      let newState = state;
+      delete newState.comments[id]
+      return (
+        {
+          ...newState
+        }
+      )
+    });
+  }
+
+  render() {
+    let commentArray = this.props.postList[this.props.postId].comments;
+    console.log("comment array", commentArray);
+
+    const comments = commentArray.map(comment => {
+      let commentObj = comment
+      let commentId = Object.keys(commentObj)[0]
+      return (
+        <Card 
+        commentId={commentId}
+        comment={commentObj[commentId]}
+        postId={this.props.postId}
+        />
+       
+      )
     })
-       return(
-           <div>
-               {comments}
-           <CommentForm addComment={this.addComment}/>
-           </div>
-       )
-   }
-    }
-    
+    return (
+      <div>
+        {comments}
+        <CommentForm postId={this.props.postId} addComment={this.addComment} />
+      </div>
+    )
+  }
+}
+function mapStateToProps(state) {
+  return {
+     postList: {...state.postList}
+  }
+}
 
-export default CommentList;
+export default connect(mapStateToProps)(CommentList);
 
 
 
 
- 
-    
+

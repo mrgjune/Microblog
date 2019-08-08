@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import uuid from 'uuid/v1';
+import { connect } from 'react-redux';
+import { addPost, editPost } from './actionCreators';
 
 
 class PostForm extends Component {
@@ -11,30 +13,29 @@ class PostForm extends Component {
             title: "",
             description: "",
             body: "",
-            isEditing:false,
+           isEditing: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
+      
     }
     componentDidMount() {
-        if (this.props.blog) {
+        if (this.props.post) {
             this.setState({
-                title: this.props.blog.title,
-                description:this.props.blog.description,
-                body:this.props.blog.body,
-                isEditing:true
+                title: this.props.post.title,
+                description: this.props.post.description,
+                body: this.props.post.body,
+                isEditing: true
 
             })
 
+        }
     }
-}
     handleChange(evt) {
         this.setState({
             [evt.target.name]: evt.target.value
         });
-
-
     };
 
     handleClick() {
@@ -47,21 +48,21 @@ class PostForm extends Component {
         // When editing: 
         if (this.state.isEditing) {
             this.props.editPost(this.props.id, this.state)
-            this.setState ({
-                isEditing:false
+            this.setState({
+                isEditing: false
             })
         }
         // When adding: 
         else {
-        let id = uuid();
-        this.props.addPost(id, this.state);
-    }
-    this.props.history.push("/")
+            let id = uuid();
+            this.props.addPost(id,this.state);
+        }
+        this.props.history.push("/")
     };
     render() {
         let button;
-        if(this.state.isEditing) {
-           button = "Edit Post"
+        if (this.state.isEditing) {
+            button = "Edit Post"
         }
         else {
             button = "Add Post"
@@ -115,4 +116,8 @@ class PostForm extends Component {
     }
 }
 
-export default PostForm;
+const mapDispatchToProps = {
+    addPost,editPost
+}
+
+export default connect(null, mapDispatchToProps)(PostForm);

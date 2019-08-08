@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
-import { thisTypeAnnotation } from '@babel/types';
-
-
-class TitleCard extends Component {
+import { deleteComment } from './actionCreators';
+import {connect} from 'react-redux';
+class Card extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,12 +12,11 @@ class TitleCard extends Component {
     }
 
     handleClick() {
-        this.props.deleteComment(this.props.id);
+        this.props.deleteComment(this.props.postId, this.props.commentId);
     }
 
     render() {
         if (this.props.comment) {
-            console.log(this.props.comment)
             return (
                 <div>
                     <li> {this.props.comment} </li>
@@ -37,5 +35,7 @@ class TitleCard extends Component {
     }
 
 }
-
-export default TitleCard;
+const mapDispatchToProps = {
+    deleteComment
+}
+export default connect(null, mapDispatchToProps)(Card);

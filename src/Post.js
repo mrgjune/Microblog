@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import PostForm from './PostForm';
 import CommentList from "./CommentList";
+import { connect } from 'react-redux';
+import { removePost } from './actionCreators';
 
 class Post extends Component {
     constructor(props) {
@@ -14,26 +16,26 @@ class Post extends Component {
 
     }
 
-
-
     handleEdit() {
         this.setState({ editing: true })
     }
 
     handleRemove() {
         let postId = this.props.match.params.postId
-        this.props.delete(postId)
+        this.props.removePost(postId)
         this.props.history.push("/")
     }
     render() {
         let postId = this.props.match.params.postId;
-        let { title, description, body } = this.props.post[postId];
-        let editForm = <PostForm history={this.props.history} id={postId} editPost={this.props.editPost} blog={this.props.post[postId]} />
+        let { title, description, body } = this.props.postList[postId];
+        let editForm = <PostForm history={this.props.history} post={{title, description, body}} id={postId} />
         let buttons = <div>
-            <button onClick={this.handleEdit}>Edit Post</button>
-            <button onClick={this.handleRemove}>Delete Post</button>
-        </div>
-        
+            <button onClick={this.handleRemove}>
+                Delete Post
+            </button>
+             <button onClick ={this.handleEdit}>Edit Post</button>
+             </div>
+
         return (
 
             <div>
@@ -44,7 +46,7 @@ class Post extends Component {
                 </Card>
 
                 {this.state.editing ? editForm : buttons}
-                <CommentList/>
+                <CommentList postId={postId} />
 
             </div>
         )
@@ -52,4 +54,15 @@ class Post extends Component {
 
 }
 
-export default Post;
+
+function mapStateToProps(state) {
+    return {
+        postList: { ...state.postList }
+    }
+}
+
+const mapDispatchToProps = {
+    removePost
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

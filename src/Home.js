@@ -1,26 +1,40 @@
 import React, { Component } from 'react';
-import TitleCard from "./TitleCard";
+import Card from "./Card";
+import { connect } from 'react-redux';
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
 
-    render() {
-        /**REFACTOR IN OWN COMPONENT */
+        this.postData = this.postData.bind(this); 
+    }
+
+    postData() {
         let postListKeys = Object.keys(this.props.postList);
         let postList = this.props.postList;
         const posts = postListKeys.map(key => {
             let post = postList[key];
             return (
-                <TitleCard key={key}
+                <Card key={key}
                     id={key}
                     title={post.title}
-                    description={post.description} />)
-        })
-
+                    description={post.description}/>
+            )})
+            return posts;
+        }
+       
+    render() {
         return (
-            <ul>{posts}</ul>
+            <ul>{this.props.postList ? this.postData() : "TODO: CREATE LINK TO ADD A POST"}</ul>
         )
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        postList: { ...state.postList }
+    }
+}
+export default connect(mapStateToProps)(Home);
 
-export default Home;
+
