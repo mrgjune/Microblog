@@ -19,7 +19,7 @@ class Routes extends Component {
 
                     <Route
                         exact
-                        path="/new"
+                        path="k/new"
                         render={rtProps => <PostForm {...rtProps} addPost={this.props.addPost} />} />
                     
                     <Route

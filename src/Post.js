@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import PostForm from './PostForm';
+import CommentList from "./CommentList";
 
 class Post extends Component {
     constructor(props) {
@@ -25,15 +26,6 @@ class Post extends Component {
         this.props.history.push("/")
     }
     render() {
-    
-        // if (this.props.post[this.props.match.params.postId] === undefined) {
-        //     console.log("if statement")
-        //     console.log(this.props.history)
-            
-        //         return this.props.history.push("/")
-
-        // }
-        // else {
         let postId = this.props.match.params.postId;
         let { title, description, body } = this.props.post[postId];
         let editForm = <PostForm history={this.props.history} id={postId} editPost={this.props.editPost} blog={this.props.post[postId]} />
@@ -43,6 +35,7 @@ class Post extends Component {
         </div>
         
         return (
+
             <div>
                 <Card>
                     <Card.Title>{title}</Card.Title>
@@ -51,6 +44,7 @@ class Post extends Component {
                 </Card>
 
                 {this.state.editing ? editForm : buttons}
+                <CommentList/>
 
             </div>
         )

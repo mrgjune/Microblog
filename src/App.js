@@ -8,7 +8,14 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: {}
+      posts: {
+        test: {
+          title: "Test Title",
+          description: "Test Description",
+          body: "test body"
+
+        }
+      }
     }
     this.addPost = this.addPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
