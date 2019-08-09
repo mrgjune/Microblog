@@ -1,6 +1,6 @@
 import { ADD_POST, EDIT_POST, REMOVE_POST, ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from './actionTypes';
 
-
+// State looks like: 
 /* {postList: {
     postId: {
         id1: {
@@ -37,7 +37,7 @@ function reducer(state = INITIAL_STATE, action) {
                 }
             }
         case EDIT_POST:
-            // DELETES COMMENTS WHEN POST IS EDITED
+            // TODO: FIX THIS ISSUE - DELETES COMMENTS WHEN POST IS EDITED
             return {
                 ...state,
                 postList: {

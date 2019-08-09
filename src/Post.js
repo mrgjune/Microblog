@@ -29,6 +29,8 @@ class Post extends Component {
         let postId = this.props.match.params.postId;
         let { title, description, body } = this.props.postList[postId];
         let editForm = <PostForm history={this.props.history} post={{title, description, body}} id={postId} />
+
+        // When viewing a post these buttons will appear. When editing, they will not render.
         let buttons = <div>
             <button onClick={this.handleRemove}>
                 Delete Post

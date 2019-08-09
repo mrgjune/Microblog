@@ -28,6 +28,7 @@ class CommentForm extends Component {
     handleSubmit(evt) {
         evt.preventDefault();
         let commentId = uuid();
+        // addComment takes commentId, postId, and an object with {uuid: comment text}
         this.props.addComment(commentId,this.props.postId, {[commentId]: this.state.comment})
         this.setState({
             comment: ""

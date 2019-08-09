@@ -20,6 +20,8 @@ class PostForm extends Component {
         this.handleClick = this.handleClick.bind(this);
       
     }
+    // If there is a post in the props we are editing the form. 
+    // Update the form state to have the current post data.
     componentDidMount() {
         if (this.props.post) {
             this.setState({
@@ -52,14 +54,16 @@ class PostForm extends Component {
                 isEditing: false
             })
         }
-        // When adding: 
+        // When adding, create an id and add post to redux state. 
         else {
             let id = uuid();
             this.props.addPost(id,this.state);
         }
+        // Redirect home
         this.props.history.push("/")
     };
     render() {
+        // Change button text when adding / editing
         let button;
         if (this.state.isEditing) {
             button = "Edit Post"

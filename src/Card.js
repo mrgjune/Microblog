@@ -16,6 +16,7 @@ class Card extends Component {
     }
 
     render() {
+        // When there is a comment in props, this card is showing a comment.
         if (this.props.comment) {
             return (
                 <div>
@@ -24,6 +25,7 @@ class Card extends Component {
                 </div>
             )
         }
+        // When there is no comment in props, this is a title card.
         return (
             <div>
                 <li>

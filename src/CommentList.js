@@ -35,13 +35,17 @@ class CommentList extends Component {
   }
 
   render() {
-    let commentArray = this.props.postList[this.props.postId].comments;
-    console.log("comment array", commentArray);
 
+    // Comments look like [{uuid: text}, ...]. 
+    // Map through them, get id and text, create card from it.
+    let commentArray = this.props.postList[this.props.postId].comments;
     const comments = commentArray.map(comment => {
       let commentObj = comment
       let commentId = Object.keys(commentObj)[0]
       return (
+
+        // Create a card with comment Id and comment.
+        //  Pass in post id to add/remove from redux.
         <Card 
         commentId={commentId}
         comment={commentObj[commentId]}
@@ -52,6 +56,7 @@ class CommentList extends Component {
     })
     return (
       <div>
+        {/* Show comments and comment form */}
         {comments}
         <CommentForm postId={this.props.postId} addComment={this.addComment} />
       </div>
