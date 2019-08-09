@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import uuid from 'uuid/v1';
+
 import { connect } from 'react-redux';
 import { addPost, editPost } from './actionCreators';
 
@@ -56,8 +56,7 @@ class PostForm extends Component {
         }
         // When adding, create an id and add post to redux state. 
         else {
-            let id = uuid();
-            this.props.addPost(id,this.state);
+            this.props.addPost(this.state);
         }
         // Redirect home
         this.props.history.push("/")
@@ -108,20 +107,14 @@ class PostForm extends Component {
                             value={this.state.body}
                             size="md" />
                     </Form.Group>
-                    <Button type="submit"
-                        variant="outline-dark"
-                        size="md"
-                        style={{ float: "right" }}
+                    <Button variant="outline-primary" type="submit"
+                        
                     >{button}</Button>
+                <Button className="m-2" variant="outline-danger" onClick={this.handleClick}>Cancel</Button>
                 </Form >
-                <Button onClick={this.handleClick}>Cancel</Button>
             </div>
         )
     }
 }
 
-const mapDispatchToProps = {
-    addPost,editPost
-}
-
-export default connect(null, mapDispatchToProps)(PostForm);
+export default connect(null, {addPost, editPost})(PostForm);

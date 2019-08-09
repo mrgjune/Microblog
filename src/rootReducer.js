@@ -1,4 +1,4 @@
-import { ADD_POST, EDIT_POST, REMOVE_POST, ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from './actionTypes';
+import { ADD_POST, DISPLAY_POSTS, DISPLAY_POST, EDIT_POST, REMOVE_POST, ADD_COMMENT, DELETE_COMMENT } from './actionTypes';
 
 // State looks like: 
 /* {postList: {
@@ -18,11 +18,25 @@ import { ADD_POST, EDIT_POST, REMOVE_POST, ADD_COMMENT, EDIT_COMMENT, DELETE_COM
 }}
 */
 const INITIAL_STATE = {
-    postList: {}
+    titles: [
+       
+    ]
 }
 
 function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
+        case DISPLAY_POSTS:
+                return {
+                    ...state,
+                    titles: [...state.titles, ...action.posts],
+                    postList:[]
+                }
+            
+        case DISPLAY_POST:
+            return {...state,
+                ...action.post
+
+            }
         case ADD_POST:
             return {
                 ...state,
@@ -34,10 +48,14 @@ function reducer(state = INITIAL_STATE, action) {
                         body: action.post.body,
                         comments: []
                     }
-                }
+                },
+                titles: [...state.titles, {
+                    title: action.post.title,
+                    description: action.post.description,
+
+                }]
             }
         case EDIT_POST:
-            // TODO: FIX THIS ISSUE - DELETES COMMENTS WHEN POST IS EDITED
             return {
                 ...state,
                 postList: {

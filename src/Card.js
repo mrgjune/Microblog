@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import { deleteComment } from './actionCreators';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import CardBootstrap from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+
 class Card extends Component {
     constructor(props) {
         super(props);
@@ -27,11 +30,13 @@ class Card extends Component {
         }
         // When there is no comment in props, this is a title card.
         return (
-            <div>
-                <li>
-                    <Link to={"/" + this.props.id}> <h1> {this.props.title} </h1> </Link>
-                    {this.props.description}
-                </li>
+            <div className="container">
+                <CardBootstrap bg="light" className="text-center p-2 m-2" style={{ width: '200px' }}>
+                    <CardBootstrap.Title as="h4">{this.props.title}</CardBootstrap.Title>
+                    <CardBootstrap.Subtitle className="mb-2 text-muted">{this.props.description}</CardBootstrap.Subtitle>
+                    <Link to={"/" + this.props.id}> <Button> View post! </Button> </Link>
+
+                </CardBootstrap>
             </div>
         )
     }
