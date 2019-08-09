@@ -45,7 +45,8 @@ function reducer(state = INITIAL_STATE, action) {
                     [action.id]: {
                         title: action.post.title,
                         description: action.post.description,
-                        body: action.post.body
+                        body: action.post.body,
+                        comments: [...state.postList[action.id].comments]
                     }
                 }
             }
