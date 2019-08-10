@@ -1,41 +1,26 @@
 import { ADD_POST, DISPLAY_POSTS, DISPLAY_POST, EDIT_POST, REMOVE_POST, ADD_COMMENT, DELETE_COMMENT } from './actionTypes';
 
-// State looks like: 
-/* {postList: {
-    postId: {
-        id1: {
-            title: "string",
-            description: "string",
-            body: "string",
-            comments: [
-                {commentId1: "string"},
-                {commentId2: "string"},
-                ...
-            ]
-        }
-        
-    }
-}}
-*/
-const INITIAL_STATE = {
-    titles: [
-       
-    ]
-}
 
+const INITIAL_STATE = {
+    titles: [],
+    postList: []
+}
 function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case DISPLAY_POSTS:
                 return {
-                    ...state,
+                    ...state.titles,
                     titles: [...state.titles, ...action.posts],
-                    postList:[]
+                    postList:[...state.postList]
                 }
             
         case DISPLAY_POST:
-            return {...state,
-                ...action.post
-
+            console.log(action.post,"action")
+                return {...state.postList,
+                  postList: [...state.postList, action.post],
+                  titles:[...state.titles],
+            // return {...state,
+            //     ...action.post
             }
         case ADD_POST:
             return {

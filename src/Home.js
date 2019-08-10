@@ -9,6 +9,7 @@ class Home extends Component {
         this.postData = this.postData.bind(this);
     }
     async componentDidMount() {
+        console.log("home props are: ", this.props);
         if (this.props.posts.titles.length === 0) {
             await this.props.getPosts();
         }

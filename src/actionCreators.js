@@ -4,6 +4,7 @@ const URL = "http://localhost:5000/"
 
 // Get all posts thunk
 export function getPosts() {
+    console.log("made a get for all the posts in the database")
     return async function (dispatch) {
         let res = await axios.get(`${URL}api/posts`);
         dispatch(gotPosts(res.data));
@@ -19,11 +20,24 @@ export function gotPosts(posts) {
 
 // Get one post thunk
 export function getPost(id) {
-    return async function (dispatch) {
-        let res = await axios.get(`${URL}api/posts/${id}`);
-        dispatch(gotPost(res.data));
+    return async function (dispatch, getState) {
+        let post;
+        if (getState().postList.length !== 0) {
+        getState().postList.map(postObj => {
+             post = postObj;
+
+        })
+        if (post.id === id) {
+            return;
+        }
+    }
+        else {
+            let res = await axios.get(`${URL}api/posts/${id}`);
+            dispatch(gotPost(res.data));
+        }
     }
 }
+
 
 // Get one post
 export function gotPost(post) {
@@ -38,14 +52,14 @@ export function gotPost(post) {
 
 // Add post
 export function addPost(newPost) {
+    console.log("made a post to the db for a new post")
 
-   return async function (dispatch) {
-       let res = await axios.post(`${URL}api/posts`,newPost)
-
-       dispatch(addedPost(res.data));
+    return async function (dispatch) {
+        let res = await axios.post(`${URL}api/posts`, newPost)
+        dispatch(addedPost(res.data));
     }
 }
-export function addedPost (post) {
+export function addedPost(post) {
     return {
         type: ADD_POST,
         post
